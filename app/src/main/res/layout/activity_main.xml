@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splash_scre"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_scre"
+    android:clipToOutline="true">
+
+    <FrameLayout
+        android:id="@+id/component_3"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/ellipse_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="8dp"
+            android:src="@drawable/ellipse3" />
+
+        <ImageView
+            android:id="@+id/ellipse_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="8dp"
+            android:src="@drawable/ellipse2" />
+
+        <ImageView
+            android:id="@+id/diary"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:elevation="8dp"
+            android:src="@drawable/diary" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/manage_your"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/component_3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal|top"
+        android:lineSpacingExtra="-6sp"
+        android:text="@string/manage_your"
+        android:textAppearance="@style/manage_your" />
+
+    <ImageView
+        android:id="@+id/startarrow"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/manage_your"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/arrow" />
+</RelativeLayout>
