@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -22,17 +21,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.taskmanager.Authentication;
 import com.example.taskmanager.R;
 import com.example.taskmanager.core.DataBaseHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
-public class AddTaskFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class AddTaskFragment extends Fragment {
 
     private DataBaseHelper databaseHelper;
     private RadioGroup radioGroup;
@@ -183,19 +180,4 @@ public class AddTaskFragment extends Fragment implements AdapterView.OnItemSelec
     }
 
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        spinnerTaskCategory.setOnItemSelectedListener(this);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // Handle the selection
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Handle the case where nothing is selected
-    }
 }
