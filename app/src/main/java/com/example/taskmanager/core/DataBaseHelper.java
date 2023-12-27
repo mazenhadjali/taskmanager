@@ -12,6 +12,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.taskmanager.core.entities.Category;
 import com.example.taskmanager.core.entities.Task;
 import com.example.taskmanager.core.entities.User;
 
@@ -233,7 +234,6 @@ public class DataBaseHelper extends SQLiteOpenHelper implements DatabaseOperatio
         return tasksByDay;
     }
 
-    // This method sets a task's state to 'Completed'
     public boolean setTaskCompleted(int taskId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -243,7 +243,6 @@ public class DataBaseHelper extends SQLiteOpenHelper implements DatabaseOperatio
         return numberOfRowsAffected > 0;
     }
 
-    // This method sets a task's state to 'Pending'
     public boolean setTaskPending(int taskId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -251,5 +250,30 @@ public class DataBaseHelper extends SQLiteOpenHelper implements DatabaseOperatio
         int numberOfRowsAffected = db.update("Tasks", values, "TaskID = ?", new String[]{String.valueOf(taskId)});
         Log.i("update database", "taskId" + taskId + " set pending");
         return numberOfRowsAffected > 0;
+    }
+
+    public List<Category> getAllCategories() {
+        List<Category> categories = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            cursor = db.query("Categories", null, null, null, null, null, "CategoryID ASC");
+
+            if (cursor.moveToFirst()) {
+                do {
+                    @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("CategoryID"));
+                    @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("CategoryName"));
+                    categories.add(new Category(id, name)); // Assuming a Category constructor that takes an id and name
+                } while (cursor.moveToNext());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+        return categories;
     }
 }

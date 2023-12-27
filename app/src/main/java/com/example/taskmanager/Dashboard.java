@@ -40,7 +40,7 @@ public class Dashboard extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, mainFragment).commit();
+
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -64,5 +64,7 @@ public class Dashboard extends AppCompatActivity {
                 return false;
             }
         });
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mainFragment).commitNow();
     }
 }

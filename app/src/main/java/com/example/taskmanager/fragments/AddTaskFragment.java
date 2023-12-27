@@ -35,7 +35,6 @@ public class AddTaskFragment extends Fragment {
     private RadioGroup radioGroup;
     private LinearLayout taskDetailsLayout;
     private LinearLayout categoryDetailsLayout;
-
     private EditText startDateEditText, endDateEditText;
     private Spinner spinnerTaskCategory;
     private Button submitButton;
@@ -178,6 +177,8 @@ public class AddTaskFragment extends Fragment {
             }
         }
     }
+
+
 
 
 }
