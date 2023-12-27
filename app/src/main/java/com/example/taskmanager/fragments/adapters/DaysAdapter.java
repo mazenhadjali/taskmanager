@@ -1,5 +1,6 @@
 package com.example.taskmanager.fragments.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,8 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder> {
 
     private final List<String> days;
     private final LayoutInflater inflater;
-    // Define a listener
     private final View.OnClickListener clickListener;
+    private int selectedDayPosition = -1;
 
     public DaysAdapter(Context context, List<String> days, View.OnClickListener clickListener) {
         this.inflater = LayoutInflater.from(context);
@@ -30,11 +31,17 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder> {
         this.clickListener = clickListener;
     }
 
+    public void setSelectedDay(int position) {
+        int previousSelectedPosition = selectedDayPosition;
+        selectedDayPosition = position;
+        notifyItemChanged(previousSelectedPosition);
+        notifyItemChanged(selectedDayPosition);
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_day, parent, false);
-        view.setOnClickListener(clickListener); // Set the listener to the view
         return new ViewHolder(view);
     }
 
@@ -43,20 +50,19 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder> {
         String day = days.get(position);
 
         try {
-            // Assuming your day string is in a "YYYY-MM-DD" format, e.g., "2020-01-01"
             SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             Date date = originalFormat.parse(day);
 
-            // Format the date to get the day of the week e.g. "Mon"
             SimpleDateFormat dayOfWeekFormat = new SimpleDateFormat("EEE", Locale.getDefault());
             String dayOfWeek = dayOfWeekFormat.format(date);
 
-            // Format the date to get the date in "01 Jan" format
             SimpleDateFormat dayOfMonthFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
             String dayOfMonth = dayOfMonthFormat.format(date);
 
             holder.textViewDayOfWeek.setText(dayOfWeek);
             holder.textViewDate.setText(dayOfMonth);
+
+            holder.itemView.setSelected(position == selectedDayPosition);
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -68,7 +74,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder> {
         return days.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textViewDayOfWeek;
         TextView textViewDate;
 
@@ -76,6 +82,14 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder> {
             super(itemView);
             textViewDayOfWeek = itemView.findViewById(R.id.textViewDayOfWeek);
             textViewDate = itemView.findViewById(R.id.textViewDate);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
+            setSelectedDay(getAdapterPosition());
+            clickListener.onClick(view);
         }
     }
 }

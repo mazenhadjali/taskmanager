@@ -8,28 +8,32 @@ public class Task {
     private int categoryID;
     private String title;
     private String description;
-    private TaskType taskType;
-    private Date dueDate;
     private Time startTime;
     private Time endTime;
-    private String dayOfWeek;
-    private boolean completed;
+    private String State;
 
-    public Task() {}
+    public Task() {
+    }
 
-    public Task(int taskID, int userID, int categoryID, String title, String description, TaskType taskType,
-                Date dueDate, Time startTime, Time endTime, String dayOfWeek, boolean completed) {
+    public Task(int taskID, int userID, int categoryID, String title, String description, Time startTime, Time endTime, String state) {
         this.taskID = taskID;
         this.userID = userID;
         this.categoryID = categoryID;
         this.title = title;
         this.description = description;
-        this.taskType = taskType;
-        this.dueDate = dueDate;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.dayOfWeek = dayOfWeek;
-        this.completed = completed;
+        State = state;
+    }
+
+    public Task(int userID, int categoryID, String title, String description, Time startTime, Time endTime, String state) {
+        this.userID = userID;
+        this.categoryID = categoryID;
+        this.title = title;
+        this.description = description;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        State = state;
     }
 
     public int getTaskID() {
@@ -72,22 +76,6 @@ public class Task {
         this.description = description;
     }
 
-    public TaskType getTaskType() {
-        return taskType;
-    }
-
-    public void setTaskType(TaskType taskType) {
-        this.taskType = taskType;
-    }
-
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
-
     public Time getStartTime() {
         return startTime;
     }
@@ -104,19 +92,11 @@ public class Task {
         this.endTime = endTime;
     }
 
-    public String getDayOfWeek() {
-        return dayOfWeek;
+    public String getState() {
+        return State;
     }
 
-    public void setDayOfWeek(String dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
+    public void setState(String state) {
+        State = state;
     }
 }

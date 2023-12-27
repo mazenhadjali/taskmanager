@@ -29,8 +29,10 @@ public class SQLQueries {
             + "FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)"
             + ");";
 
-    public static final String GET_DISTINCT_DAYS = "SELECT DISTINCT DATE(StartTime) AS Day FROM Tasks " +
-            "UNION " +
-            "SELECT DISTINCT DATE(EndTime) FROM Tasks;";
+    public static final String GET_DISTINCT_DAYS = "SELECT DISTINCT DATE(StartTime) AS Day FROM Tasks UNION SELECT DISTINCT DATE(EndTime) FROM Tasks;";
+
+    public static final String GET_TASKS_BY_DAY = "SELECT * FROM Tasks WHERE DATE(StartTime) = ? OR DATE(EndTime) = ?;";
+
+
 
 }
