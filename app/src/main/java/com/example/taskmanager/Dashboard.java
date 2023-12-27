@@ -65,6 +65,8 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, mainFragment).commitNow();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, mainFragment).commit();
     }
+
+
 }

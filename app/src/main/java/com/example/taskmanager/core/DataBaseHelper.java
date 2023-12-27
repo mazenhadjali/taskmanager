@@ -28,7 +28,7 @@ import java.util.Set;
 public class DataBaseHelper extends SQLiteOpenHelper implements DatabaseOperations {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "TODO_DATABASE1";
+    private static final String DATABASE_NAME = "TODO_DATABASE2";
     private static final String TABLE_NAME = "TODO_TABLE";
 
     public DataBaseHelper(@Nullable Context context) {
@@ -275,5 +275,67 @@ public class DataBaseHelper extends SQLiteOpenHelper implements DatabaseOperatio
             }
         }
         return categories;
+    }
+
+    @SuppressLint("Range")
+    public int countTotalTasks() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        int totalCount = 0;
+        try {
+            cursor = db.rawQuery(SQLQueries.COUNT_TOTAL_TASKS, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                totalCount = cursor.getInt(cursor.getColumnIndex("total_count"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return totalCount;
+    }
+
+    // Method to count the total number of completed tasks
+    @SuppressLint("Range")
+    public int countCompletedTasks() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        int completedCount = 0;
+        try {
+            cursor = db.rawQuery(SQLQueries.COUNT_COMPLETED_TASKS, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                completedCount = cursor.getInt(cursor.getColumnIndex("completed_count"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return completedCount;
+    }
+
+    // Method to count the total number of pending tasks
+    @SuppressLint("Range")
+    public int countPendingTasks() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        int pendingCount = 0;
+        try {
+            cursor = db.rawQuery(SQLQueries.COUNT_PENDING_TASKS, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                pendingCount = cursor.getInt(cursor.getColumnIndex("pending_count"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return pendingCount;
     }
 }

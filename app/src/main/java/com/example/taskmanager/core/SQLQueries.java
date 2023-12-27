@@ -33,6 +33,9 @@ public class SQLQueries {
 
     public static final String GET_TASKS_BY_DAY = "SELECT * FROM Tasks WHERE DATE(StartTime) = ? OR DATE(EndTime) = ?;";
 
+    public static final String COUNT_TOTAL_TASKS = "SELECT COUNT(*) AS total_count FROM Tasks;";
 
+    public static final String COUNT_COMPLETED_TASKS = "SELECT COUNT(*) AS completed_count FROM Tasks WHERE State = 'Completed';";
 
+    public static final String COUNT_PENDING_TASKS = "SELECT COUNT(*) AS pending_count FROM Tasks WHERE State = 'Pending';";
 }
