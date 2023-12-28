@@ -28,7 +28,7 @@ import java.util.Set;
 public class DataBaseHelper extends SQLiteOpenHelper implements DatabaseOperations {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "TODO_DATABASE2";
+    private static final String DATABASE_NAME = "TODO_DATABASE4";
     private static final String TABLE_NAME = "TODO_TABLE";
 
     public DataBaseHelper(@Nullable Context context) {
@@ -56,7 +56,7 @@ public class DataBaseHelper extends SQLiteOpenHelper implements DatabaseOperatio
     }
 
     private void addDefaultCategories(SQLiteDatabase db) {
-        String[] defaultCategories = {"study", "home", "work"};
+        String[] defaultCategories = {"Study", "Home", "Work"};
         for (String category : defaultCategories) {
             ContentValues values = new ContentValues();
             values.put("CategoryName", category);
@@ -203,7 +203,6 @@ public class DataBaseHelper extends SQLiteOpenHelper implements DatabaseOperatio
                 task.setCategoryID(cursor.getInt(cursor.getColumnIndex("CategoryID")));
                 task.setTitle(cursor.getString(cursor.getColumnIndex("Title")));
                 task.setDescription(cursor.getString(cursor.getColumnIndex("Description")));
-
                 String startTimeStr = cursor.getString(cursor.getColumnIndex("StartTime"));
                 String endTimeStr = cursor.getString(cursor.getColumnIndex("EndTime"));
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
@@ -337,5 +336,117 @@ public class DataBaseHelper extends SQLiteOpenHelper implements DatabaseOperatio
             }
         }
         return pendingCount;
+    }
+
+    @SuppressLint("Range")
+    public List<Task> getTasksByCategoryId(int categoryId) {
+        List<Task> tasksByCategoryId = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+
+        try {
+            String[] projection = {
+                    "TaskID",
+                    "UserID",
+                    "CategoryID",
+                    "Title",
+                    "Description",
+                    "StartTime",
+                    "EndTime",
+                    "State"
+            };
+            String selection = "CategoryID = ?";
+            String[] selectionArgs = {String.valueOf(categoryId)};
+
+            cursor = db.query(
+                    "Tasks",   // The table to query
+                    projection,            // The columns to return
+                    selection,             // The columns for the WHERE clause
+                    selectionArgs,         // The values for the WHERE clause
+                    null,         // don't group the rows
+                    null,          // don't filter by row groups
+                    null           // The sort order
+            );
+
+            if (cursor.moveToFirst()) {
+                do {
+                    Task task = new Task();
+                    task.setTaskID(cursor.getInt(cursor.getColumnIndex("TaskID")));
+                    task.setUserID(cursor.getInt(cursor.getColumnIndex("UserID")));
+                    task.setCategoryID(cursor.getInt(cursor.getColumnIndex("CategoryID")));
+                    task.setTitle(cursor.getString(cursor.getColumnIndex("Title")));
+                    task.setDescription(cursor.getString(cursor.getColumnIndex("Description")));
+                    String startTimeStr = cursor.getString(cursor.getColumnIndex("StartTime"));
+                    String endTimeStr = cursor.getString(cursor.getColumnIndex("EndTime"));
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
+
+                    if (startTimeStr != null && !startTimeStr.trim().isEmpty()) {
+                        try {
+                            java.util.Date startTime = sdf.parse(startTimeStr);
+                            task.setStartTime(new Time(startTime.getTime()));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (endTimeStr != null && !endTimeStr.trim().isEmpty()) {
+                        try {
+                            java.util.Date endTime = sdf.parse(endTimeStr);
+                            task.setEndTime(new Time(endTime.getTime()));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    task.setState(cursor.getString(cursor.getColumnIndex("State")));
+                    tasksByCategoryId.add(task);
+                } while (cursor.moveToNext());
+            }
+        } catch (SQLException e) {
+            Log.e("DataBaseHelper", "Error fetching tasks by category", e);
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+        return tasksByCategoryId;
+    }
+
+    public String getCategoryNameById(int categoryId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        String categoryName = null;
+
+        try {
+            String[] projection = new String[]{"CategoryName"};
+            String selection = "CategoryID = ?";
+            String[] selectionArgs = new String[]{String.valueOf(categoryId)};
+
+            cursor = db.query(
+                    "Categories",
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int nameIndex = cursor.getColumnIndex("CategoryName");
+                if (nameIndex != -1) {
+                    categoryName = cursor.getString(nameIndex);
+                }
+            }
+        } catch (SQLException e) {
+            Log.e("DataBaseHelper", "Error fetching category name", e);
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+        return categoryName;
     }
 }

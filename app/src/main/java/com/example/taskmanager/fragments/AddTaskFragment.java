@@ -140,7 +140,6 @@ public class AddTaskFragment extends Fragment {
             new TimePickerDialog(getActivity(), (timeView, hourOfDay, minute) -> {
                 date.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 date.set(Calendar.MINUTE, minute);
-                // Format the date and time in the preferred format
                 String dateTimeString = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(date.getTime());
                 ((EditText) v).setText(dateTimeString);
             }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), false).show();
@@ -151,6 +150,7 @@ public class AddTaskFragment extends Fragment {
         if (radioGroup.getCheckedRadioButtonId() == R.id.rb_insert_category) {
             String categoryName = ((EditText) getView().findViewById(R.id.et_category_name)).getText().toString().trim();
             if (!categoryName.isEmpty()) {
+                categoryName = Character.toUpperCase(categoryName.charAt(0)) + categoryName.substring(1);
                 databaseHelper.addCategory(categoryName);
                 Toast.makeText(this.getActivity(), "Category inserted successfully", Toast.LENGTH_SHORT).show();
                 ((EditText) getView().findViewById(R.id.et_category_name)).setText("");

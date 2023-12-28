@@ -54,12 +54,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Task task = taskList.get(position);
-        holder.btnCheck.setChecked(task.getState().equals("Completed"));
+        // Add null check for task state
+        holder.btnCheck.setChecked("Completed".equals(task.getState()));
         holder.taskTitle.setText(task.getTitle());
         holder.taskDescription.setText(task.getDescription());
 
         holder.btnCheck.setOnClickListener(v -> {
-            if (task.getState().equals("Completed")) {
+            if ("Completed".equals(task.getState())) {
                 dataBaseHelper.setTaskPending(task.getTaskID());
                 task.setState("Pending");
             } else {

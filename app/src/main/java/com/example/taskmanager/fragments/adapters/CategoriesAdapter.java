@@ -20,13 +20,18 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     private List<Category> categoryList;
     private LayoutInflater mInflater;
 
-    public CategoriesAdapter(Context context, List<Category> data) {
+    public CategoriesAdapter(Context context, List<Category> data, OnCategoryClickListener listener) {
         this.mInflater = LayoutInflater.from(context);
-        this.categoryList = new ArrayList<>();
-        if (data != null) {
-            this.categoryList.addAll(data);
-        }
+        this.categoryList = (data != null) ? new ArrayList<>(data) : new ArrayList<>();
+        this.onCategoryClickListener = listener;
     }
+    // Define an interface for callback
+    public interface OnCategoryClickListener {
+        void onCategoryClick(Category category);
+    }
+
+    private OnCategoryClickListener onCategoryClickListener;
+
 
     public void updateData(List<Category> newData) {
         categoryList.clear();
@@ -52,12 +57,21 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         return categoryList != null ? categoryList.size() : 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView categoryName;
 
         ViewHolder(View itemView) {
             super(itemView);
             categoryName = itemView.findViewById(R.id.categoryName);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (onCategoryClickListener != null && getAdapterPosition() != RecyclerView.NO_POSITION) {
+                Category clickedCategory = categoryList.get(getAdapterPosition());
+                onCategoryClickListener.onCategoryClick(clickedCategory);
+            }
         }
     }
 }

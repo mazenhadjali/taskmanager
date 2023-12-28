@@ -22,7 +22,7 @@ import com.example.taskmanager.fragments.adapters.CategoriesAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements CategoriesAdapter.OnCategoryClickListener {
 
     private RecyclerView recyclerCategories;
     private CategoriesAdapter categoriesAdapter;
@@ -50,9 +50,20 @@ public class MainFragment extends Fragment {
 
         recyclerCategories = view.findViewById(R.id.recycler_categories);
         recyclerCategories.setLayoutManager(new LinearLayoutManager(getContext()));
-        categoriesAdapter = new CategoriesAdapter(getContext(), categoryList);
+        categoriesAdapter = new CategoriesAdapter(getContext(), categoryList, this);
         recyclerCategories.setAdapter(categoriesAdapter);
         return view;
+    }
+
+    @Override
+    public void onCategoryClick(Category category) {
+        tasksbycategory fragment = tasksbycategory.newInstance(category.getCategoryID());
+        // Perform fragment transaction to replace with tasksbycategory fragment
+        // Consider passing the category ID to the newInstance method for the tasksbycategory fragment
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void loadTaskCounts() {
@@ -84,6 +95,7 @@ public class MainFragment extends Fragment {
         loadTaskCounts(); // Update task counts and progress bars
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
