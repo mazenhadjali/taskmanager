@@ -8,13 +8,15 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            >
 
             <RadioGroup
                 android:id="@+id/rg_add_options"
@@ -144,7 +146,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Submit"
-                app:cornerRadius="4dp" />
+                app:cornerRadius="4dp"
+                />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

@@ -9,7 +9,8 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:background="@drawable/selected_day_border"
+    android:background="@color/second"
+
     >
 
     <LinearLayout
@@ -17,7 +18,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/second"
+        >
 
         <TextView
             android:id="@+id/textViewDayOfWeek"
@@ -25,15 +28,18 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/maincolor"
+            />
 
         <TextView
             android:id="@+id/textViewDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="@color/dark_gray"
-            android:layout_marginTop="4dp" />
+            android:textColor="@color/maincolor"
+            android:layout_marginTop="4dp"
+            android:textStyle="italic" />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
