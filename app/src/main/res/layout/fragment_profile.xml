@@ -1,13 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ProfileFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-</FrameLayout>
+        <!-- First LinearLayout for new password and password confirm -->
+        <TextView
+            android:id="@+id/tvNewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Password" />
+
+        <EditText
+            android:id="@+id/etNewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/tvConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm Password" />
+
+        <EditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Second LinearLayout for light mode or dark mode radio buttons -->
+        <TextView
+            android:id="@+id/tvModeSelection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Mode" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <RadioButton
+                android:checked="true"
+                android:id="@+id/rbLightMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Light Mode" />
+
+            <RadioButton
+                android:id="@+id/rbDarkMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dark Mode" />
+        </RadioGroup>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#e0e0e0"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Third LinearLayout for colors with color fill -->
+        <TextView
+            android:id="@+id/tvColorSelection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Color" />
+
+        <RadioGroup
+            android:id="@+id/colorSelectionGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:checked="true"
+                android:id="@+id/rbColorRed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Red #ff0000"
+                android:textColor="@color/maincolor" />
+
+            <RadioButton
+                android:id="@+id/rbColorBlue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Blue #2e58ff"
+                android:textColor="#2e58ff" />
+
+            <RadioButton
+                android:id="@+id/rbColorOrange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Orange #ff8b33"
+                android:textColor="#ff8b33" />
+        </RadioGroup>
+    </LinearLayout>
+</ScrollView>

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.taskmanager.fragments.AddTaskFragment;
 import com.example.taskmanager.fragments.CalendarFragment;
 import com.example.taskmanager.fragments.MainFragment;
+import com.example.taskmanager.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -20,6 +21,7 @@ public class Dashboard extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
 
     MainFragment mainFragment = new MainFragment();
+    ProfileFragment profileFragment = new ProfileFragment();
     AddTaskFragment addTaskFragment = new AddTaskFragment();
     CalendarFragment calendarFragment = new CalendarFragment();
 
@@ -58,7 +60,7 @@ public class Dashboard extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container, addTaskFragment).commit();
                     return true;
                 } else if (item.getItemId() == R.id.profile) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, mainFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commit();
                     return true;
                 }
                 return false;
