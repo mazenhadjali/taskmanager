@@ -1,0 +1,28 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="#2e58ff"/> <!-- Your specified blue color -->
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="#000000"/> <!-- Black color for the border -->
+                    <padding android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="2dp"/>
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="#2e58ff"/> <!-- Blue color same as the outer circle to cover the black color -->
+                    <size android:width="40dp" android:height="40dp"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#B32E58ff"/> <!-- A more transparent version of the blue for the unselected state -->
+        </shape>
+    </item>
+</selector>

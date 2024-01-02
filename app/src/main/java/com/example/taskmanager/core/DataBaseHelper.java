@@ -102,6 +102,28 @@ public class DataBaseHelper extends SQLiteOpenHelper implements DatabaseOperatio
         return result;
     }
 
+    public boolean changeUserPassword(String newPassword) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        boolean result = false;
+        try {
+            ContentValues values = new ContentValues();
+            values.put("Password", newPassword);
+
+            int rowsAffected = db.update("Users", values, "Username = 'hadjalimazen'", null);
+
+            if (rowsAffected > 0) {
+                result = true;
+                Log.i("Update Result", "Password updated successfully for user: " + " hadjalimazen");
+            } else {
+                Log.i("Update Result", "No user records were updated. User may not exist.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     @Override
     public boolean isUserExists(String username, String password) {
         SQLiteDatabase db = getWritableDatabase();
